@@ -12,7 +12,7 @@ def split_words(sentence):
 # ---------------------------------------------------------------
 # Function to load AFINN dictionary from file (credits to Jasper haha)
 # ---------------------------------------------------------------
-def load_afinn_dict(filepath=r"C:\Users\Stephanie\Downloads\INF1002(Programming Fundemental)\Python Project\AFINN-en-165.txt"): #Ensure the file path is correct
+def load_afinn_dict(filepath=r"C:\Users\venus\Desktop\sit\y1\tri1\coding\pythonproj\P7-2-Python-Project\AFINN-en-165.txt"): #Ensure the file path is correct
     afinn = {}
     file = open(filepath, "r", encoding="utf-8")
     for line in file:
@@ -34,6 +34,26 @@ def sentiment_score(sentence, afinn):
         if word in afinn:
             score = score + afinn[word]
     return score
+
+# -----------------------------
+# Sliding Window Function
+# -----------------------------
+def sliding_window(sentences, afinn, window_size=3):
+    if len(sentences) < window_size:
+        window_size = len(sentences)
+    
+    windows = []
+    for i in range(len(sentences) - window_size + 1):
+        window_sentences = sentences[i:i+window_size]
+        # sum sentiment scores for this window
+        total_score = sum(sentiment_score(s, afinn) for s in window_sentences)
+        windows.append((window_sentences, total_score))
+    
+    # find most positive and most negative window
+    most_positive = max(windows, key=lambda x: x[1])
+    most_negative = min(windows, key=lambda x: x[1])
+    
+    return windows, most_positive, most_negative
 
 
 
