@@ -1,4 +1,4 @@
-# --- Existing functions ---
+# --- Load AFFIN Dict ---
 def load_afinn_dict(path):
     afinn = {}
     with open(path, "r", encoding="utf-8") as f:
@@ -19,7 +19,7 @@ def sentence_score(sentence, afinn):
             score += afinn[word]
     return score
 
-# --- Add sentiment label ---
+# Add sentiment label (Positive, Negative, Neutral)
 def get_label(score):
     if score > 0:
         return "Positive"
@@ -40,7 +40,7 @@ def analyze_sentences(sentences, afinn):
     
     return results, most_positive, most_negative  
 
-# --- Sliding Window Segments ---
+#  Sliding Window Segments (3 per segment) 
 def analyze_segments(sentences, afinn, window_size=3):
     segments = []
     n = len(sentences)
@@ -56,7 +56,7 @@ def analyze_segments(sentences, afinn, window_size=3):
     return segments, most_positive, most_negative
 
 
-# --- Arbitrary-length Segments --- It will calc all possible segments based on the input and find the highest and lowest score segment
+#Arbitrary-length Segments (It will calc all possible segments based on the input and find the highest and lowest score segment)
 def analyze_arbitrary_segments(sentences, afinn):
     # Compute sentence scores
     scores = [sentence_score(s, afinn) for s in sentences]
@@ -71,11 +71,11 @@ def analyze_arbitrary_segments(sentences, afinn):
         for j in range(i, n):
             current_sum += scores[j]
 
-            # update best positive
+           # update most positive
             if current_sum > best_pos[2]:
                 best_pos = (i, j, current_sum)
 
-            # update best negative
+            # update mopst negative
             if current_sum < best_neg[2]:
                 best_neg = (i, j, current_sum)
 
@@ -116,3 +116,4 @@ print("Most Negative Segment:", seg_neg[0], "(Score:", seg_neg[1], ")")
 arb_pos, arb_neg = analyze_arbitrary_segments(sentences, afinn)
 print("\nMost Positive Arbitrary-Length Segment:", arb_pos[0], "(Score:", arb_pos[1], ")")
 print("Most Negative Arbitrary-Length Segment:", arb_neg[0], "(Score:", arb_neg[1], ")")
+
