@@ -13,7 +13,7 @@ def split_words(sentence):
 # ---------------------------------------------------------------
 # 2nd Function to load AFINN dictionary from file (credits to Jasper)
 # ---------------------------------------------------------------
-def load_afinn_dict(filepath="C:/Users/Syalinah/OneDrive/Documents/SIT/Python Project/AFINN-en-165.txt"):
+def load_afinn_dict(filepath=r"C:\Users\Syalinah\OneDrive\Documents\SIT\Python Project\AFINN-en-165(Updated).txt"):
     afinn = {}
     file = open(filepath, "r", encoding="utf-8")
     for line in file:

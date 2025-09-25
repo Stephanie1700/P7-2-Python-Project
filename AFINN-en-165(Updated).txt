@@ -288,6 +288,7 @@ barbaric	-2
 barbarous	-2
 bargain	2
 barrier	-2
+basic	1
 bastard	-5
 bastards	-5
 battle	-1
@@ -666,6 +667,7 @@ criminals	-3
 criminate	-3
 criminated	-3
 criminates	-3
+cringe	-2
 crisis	-3
 critic	-2
 criticise	-2
@@ -1440,6 +1442,8 @@ gloomy	-2
 glorious	2
 glory	2
 glum	-2
+goat	3
+goated	3
 god	1
 goddamn	-3
 godsend	4
@@ -2050,6 +2054,7 @@ messed	-2
 messing up	-2
 methodical	2
 methodically	2
+mid	1
 mindless	-2
 miracle	4
 mirth	3
@@ -2149,6 +2154,7 @@ mourning	-2
 mourns	-2
 muddy	-2
 mumpish	-2
+must-watch	5
 murder	-2
 murderer	-2
 murdering	-3
@@ -2757,6 +2763,7 @@ skeptic	-2
 skeptical	-2
 skepticism	-2
 skeptics	-2
+skip	-3
 slam	-2
 slash	-2
 slashed	-2
@@ -2774,6 +2781,8 @@ sloppy	-2
 sluggish	-2
 slumping	-1
 slut	-5
+slay  	3
+slayed 	3
 smart	1
 smarter	2
 smartest	2
@@ -2968,6 +2977,7 @@ supreme	4
 survived	2
 surviving	2
 survivor	2
+sus	-1
 suspect	-1
 suspected	-1
 suspecting	-1
