@@ -4,7 +4,7 @@
 def split_words(sentence):
     clean_sentence = ""
     for char in sentence:   # LOOP: check every character
-        if char.isalpha() or char == " " or char == "-" or char == ",":   # keep letters, spaces, and "-"
+        if char.isalpha() or char == " " or char == "-":   # keep letters, spaces, and "-" To steph: do you need the '
             clean_sentence += char.lower()
     words = clean_sentence.split()   # split into words
     return words
@@ -12,7 +12,7 @@ def split_words(sentence):
 # ---------------------------------------------------------------
 # Function to load AFINN dictionary from file (credits to Jasper haha)
 # ---------------------------------------------------------------
-def load_afinn_dict(filepath=r"C:\Users\Stephanie\Downloads\INF1002(Programming Fundemental)\inf1002\pythonProject\AFINN-en-165.txt"): #Ensure the file path is correct
+def load_afinn_dict(filepath=r"C:\Users\Stephanie\Downloads\INF1002(Programming Fundemental)\inf1002\P7-2-Python-Project-main\AFINN-en-165(Updated).txt"): #Ensure the file path is correct
     afinn = {}
     file = open(filepath, "r", encoding="utf-8")
     for line in file:
@@ -40,7 +40,7 @@ def sentiment_score(sentence, afinn):
 # -----------------------------
 def sliding_window(sentences, afinn, window_size=3):
     if len(sentences) < window_size:
-        window_size = len(sentences)
+        window_size = len(sentences) 
     
     windows = []
     for i in range(len(sentences) - window_size + 1):
@@ -54,6 +54,69 @@ def sliding_window(sentences, afinn, window_size=3):
     most_negative = min(windows, key=lambda x: x[1])
     
     return windows, most_positive, most_negative
+
+#------------------------------------------------------------------------------------------------------------------------------
+#Arbitrary-length Segments (It will calc all possible segments based on the input and find the highest and lowest score segment)
+#------------------------------------------------------------------------------------------------------------------------------
+def analyze_arbitrary_segments(sentences, afinn):
+    # Compute sentence scores
+    scores = [sentiment_score(s, afinn) for s in sentences]
+
+    n = len(scores)
+    best_pos = (None, None, float("-inf"))  # (start, end, score)
+    best_neg = (None, None, float("inf"))   # (start, end, score)
+
+    # Try all possible segments
+    for i in range(n):
+        current_sum = 0
+        for j in range(i, n):
+            current_sum += scores[j]
+
+           # update most positive
+            if current_sum > best_pos[2]:
+                best_pos = (i, j, current_sum)
+
+            # update mopst negative
+            if current_sum < best_neg[2]:
+                best_neg = (i, j, current_sum)
+
+    # Extract actual sentences
+    pos_segment = sentences[best_pos[0]:best_pos[1] + 1]
+    neg_segment = sentences[best_neg[0]:best_neg[1] + 1]
+
+    return (pos_segment, best_pos[2]), (neg_segment, best_neg[2])
+
+
+#--------------------------------------
+# Find most + and - sentences function
+#--------------------------------------
+
+def get_most_positive_negative_sentence(sentence_scores):
+    positive_sentences = []
+    negative_sentences = []
+    neutral_sentences = []
+    for sentenceLs in sentence_scores:
+        sentence = sentenceLs[0]
+        score = sentenceLs[1]
+        if score > 0:
+            positive_sentences.append([sentence, score])
+        elif score < 0:
+            negative_sentences.append([sentence, score])
+        else:
+            neutral_sentences.append([sentence, score])
+
+    most_positive_sentence = None
+    most_negative_sentence = None 
+    for sentenceLs in positive_sentences: 
+        if most_positive_sentence is None or sentenceLs[1] > most_positive_sentence[1]:
+            most_positive_sentence = sentenceLs
+    for sentenceLs in negative_sentences:
+        if most_negative_sentence is None or sentenceLs[1] < most_negative_sentence[1]:
+            most_negative_sentence = sentenceLs
+
+    return positive_sentences, negative_sentences, neutral_sentences, most_positive_sentence, most_negative_sentence
+
+
 
 # ----------------------------------------------------
 # Function to load a list of english words from file 
@@ -111,9 +174,10 @@ def segment(sentence, segmentation_words):
     return " ".join(best_segmentation)
 
 if __name__=='__main__':
-    # Step 1: Load dictionary aka the AFINN dict and the English words list
+    # Step 1: Load dictionary aka the AFINN dict and english words list
     afinn = load_afinn_dict()
     words_set = load_english_words()
+
     # Combine them into a single set for segmentation
     segmentation_words = words_set.union(set(afinn.keys()))
 
@@ -122,11 +186,12 @@ if __name__=='__main__':
 
     if input_text == "":
         print("Invalid input. Please enter some text.")
+    
     else:
         # Step 3: Split the input text aka a para... into sentences
         import re
         sentences = [s.strip() for s in re.split(r'(?<=[.!?])', input_text) if s.strip() != ""]
-
+        
         # Step 4: Segment each sentence before scoring
         processed_sentences = []
         for sentence in sentences:
@@ -141,10 +206,10 @@ if __name__=='__main__':
                 else:
                     segmented_results = segment(clean_sentence.lower(), segmentation_words)
                     processed_sentences.append(segmented_results.strip())
-
+        
         # Step 5: Calculate the score for each sentence
         sentence_scores = [] 
-        for sentence in processed_sentences: 
+        for sentence in processed_sentences:
             if sentence.strip() != "":
                 score = sentiment_score(sentence, afinn)
                 sentence_scores.append([sentence, score]) # SYALLL this is to append into the list 'sentence_scores' [sentence, score] okayyyy :D
@@ -154,30 +219,10 @@ if __name__=='__main__':
         for sentenceLs in sentence_scores: 
             overall_score = overall_score + sentenceLs[1]
 
-        # Step 7: Separate positive, negative, & neutral sentences yurh
-        positive_sentences = []
-        negative_sentences = []
-        neutral_sentences = []
-        for sentenceLs in sentence_scores:
-            sentence = sentenceLs[0]
-            score = sentenceLs[1]
-            if score > 0:
-                positive_sentences.append([sentence, score])
-            elif score < 0:
-                negative_sentences.append([sentence, score])
-            else:
-                neutral_sentences.append([sentence, score])
-
-        # Step 8: Find most positive and most negative sentences onlyyy
-        most_positive = None
-        most_negative = None 
-        for sentenceLs in positive_sentences: 
-            if most_positive is None or sentenceLs[1] > most_positive[1]:
-                most_positive = sentenceLs
-        for sentenceLs in negative_sentences:
-            if most_negative is None or sentenceLs[1] < most_negative[1]:
-                most_negative = sentenceLs
-           
+                  
+        positive_sentences, negative_sentences, neutral_sentences, most_positive_sentence, most_negative_sentence = get_most_positive_negative_sentence(sentence_scores)
+        windows, most_positive, most_negative = sliding_window(processed_sentences, afinn, window_size=3)
+        arb_pos, arb_neg = analyze_arbitrary_segments(processed_sentences, afinn)
 
         # Display the segmented sentence   
         print("\nSegmented Sentences:")
@@ -185,7 +230,8 @@ if __name__=='__main__':
         for seg in processed_sentences:
             print(n,".", seg)
             n+=1
-     
+
+
         # Display scores of each sentence
         print("\nSentence Scores:")
         n=1
@@ -221,13 +267,34 @@ if __name__=='__main__':
             n+=1
 
         print("\nMost Positive Sentence:")
-        if most_positive:
-            print("'" + most_positive[0] + "' Score:", most_positive[1])
+        if most_positive_sentence:
+            print("'" + most_positive_sentence[0] + "' Score:", most_positive_sentence[1])
         else:
             print("No positive sentences found.")
 
         print("\nMost Negative Sentence:")
-        if most_negative:
-            print("'" + most_negative[0] + "' Score:", most_negative[1]) 
+        if most_negative_sentence:
+            print("'" + most_negative_sentence[0] + "' Score:", most_negative_sentence[1]) 
         else:
             print("No negative sentences found.")
+
+
+
+        print("\nMost Positive Segment(Window size = 3):")
+        if most_positive:
+            print("'" + ' '.join(most_positive[0]) + "' Score:", most_positive[1])
+
+        else:
+            print("No positive sentences found.")
+
+        print("\nMost Negative Segment(Window size = 3):")
+        if most_negative:
+            print("'" + ' '.join(most_negative[0]) + "' Score:", most_negative[1])
+
+        else:
+            print("No negative sentences found.")
+
+        
+        print("\nMost Positive Arbitrary-Length Segment:", arb_pos[0], "(Score:", arb_pos[1], ")")
+        
+        print("Most Negative Arbitrary-Length Segment:", arb_neg[0], "(Score:", arb_neg[1], ")")
