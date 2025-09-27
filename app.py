@@ -1,3 +1,5 @@
+import os
+
 # --------------------------------------------------------------
 # Function to split sentence into words (credits to Jasper haha)
 # --------------------------------------------------------------
@@ -12,15 +14,20 @@ def split_words(sentence):
 # ---------------------------------------------------------------
 # Function to load AFINN dictionary from file (credits to Jasper haha)
 # ---------------------------------------------------------------
-def load_afinn_dict(filepath=r"C:\Users\Stephanie\Downloads\INF1002(Programming Fundemental)\inf1002\P7-2-Python-Project-main\AFINN-en-165(Updated).txt"): #Ensure the file path is correct
+def load_afinn_dict(filename="AFINN-en-165(Updated).txt"):
+    # Get the directory where the current file (app.py) is located
+    base_dir = os.path.dirname(__file__)
+    
+    # Construct the full path dynamically, assuming the file is in 'static' folder
+    filepath = os.path.join(base_dir, "static", filename)
+    
     afinn = {}
-    file = open(filepath, "r", encoding="utf-8")
-    for line in file:
-        parts = line.strip().split("\t")   # split word and score
-        word = parts[0]
-        score = int(parts[1])
-        afinn[word] = score
-    file.close()
+    with open(filepath, "r", encoding="utf-8") as file:
+        for line in file:
+            parts = line.strip().split("\t")   # split word and score
+            word = parts[0]
+            score = int(parts[1])
+            afinn[word] = score
     return afinn
 
 # ------------------------------------------------------------------------------------
@@ -121,9 +128,15 @@ def get_most_positive_negative_sentence(sentence_scores):
 # ----------------------------------------------------
 # Function to load a list of english words from file 
 # ----------------------------------------------------
-def load_english_words(filepath=r"C:\Users\Stephanie\Downloads\INF1002(Programming Fundemental)\inf1002\pythonProject\englishWords.txt"): #Ensure the file path is correct
+def load_english_words(filename="englishWords.txt"):
+    # Get the directory where the current file (app.py) is located
+    base_dir = os.path.dirname(__file__)
+    
+    # Construct the full path dynamically, assuming the file is in 'static' folder
+    filepath = os.path.join(base_dir, "static", filename)
+    
     words_set = set()
-    with open(filepath, "r") as file:
+    with open(filepath, "r", encoding="utf-8") as file:
         for line in file:
             # strip whitespace and convert to lowercase
             words_set.add(line.strip().lower())
