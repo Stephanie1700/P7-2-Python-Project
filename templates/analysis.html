@@ -9,9 +9,20 @@
 <body>
     <div class="container">
         <h1>Sentiment Analysis Result</h1>
-    
+        <p><strong>Review: </strong> {{review}}</p>
+        <h2>Segmented Sentences</h2>
+        <ol>
+        {% for sentence in segmented_sentences %}
+            <li>{{ sentence }}</li>
+        {% endfor %}
+        </ol>
+
         <p><strong>Sentiment Score: </strong> {{score}}</p>
         <p><strong>Sentiment Label: </strong> {{label}}</p>
+        <h2>Most Positive Sentence</h2>
+        <p>{{ most_positive_sentence[0] }} (Score: {{ most_positive_sentence[1] }})</p>
+        <h2>Most Negative Sentence</h2>
+        <p>{{ most_negative_sentence[0] }} (Score: {{ most_negative_sentence[1] }})</p>
 
         <h2>Most Positive Window</h2>
         <p>{{ most_positive[0] }} (Score: {{ most_positive[1] }})</p>
@@ -19,7 +30,14 @@
         <h2>Most Negative Window</h2>
         <p>{{ most_negative[0] }} (Score: {{ most_negative[1] }})</p>
 
-        <button onclick="window.history.back()">Analyze Another Review</button>
+        <h2>Most Positive Arbitrary-Length Segment</h2>
+        <p>{{ arb_pos[0] }} (Score: {{ arb_pos[1] }})</p>
+
+        <h2>Most Negative Arbitrary-Length Segment</h2>
+        <p>{{ arb_neg[0] }} (Score: {{ arb_neg[1] }})</p>
+
+
+        <button onclick="window.location.href='/'">Analyze Another Review</button>
     </div>
 </body>
 </html>

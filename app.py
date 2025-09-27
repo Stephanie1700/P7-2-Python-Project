@@ -18,7 +18,7 @@ def load_afinn_dict(filename="AFINN-en-165(Updated).txt"):
     # Get the directory where the current file (app.py) is located
     base_dir = os.path.dirname(__file__)
     
-    # Construct the full path dynamically, assuming the file is in 'static' folder
+    # Construct the full path dynamically, the file is in 'static' folder
     filepath = os.path.join(base_dir, "static", filename)
     
     afinn = {}
@@ -93,7 +93,6 @@ def analyze_arbitrary_segments(sentences, afinn):
 
     return (pos_segment, best_pos[2]), (neg_segment, best_neg[2])
 
-
 #--------------------------------------
 # Find most + and - sentences function
 #--------------------------------------
@@ -123,8 +122,6 @@ def get_most_positive_negative_sentence(sentence_scores):
 
     return positive_sentences, negative_sentences, neutral_sentences, most_positive_sentence, most_negative_sentence
 
-
-
 # ----------------------------------------------------
 # Function to load a list of english words from file 
 # ----------------------------------------------------
@@ -132,7 +129,7 @@ def load_english_words(filename="englishWords.txt"):
     # Get the directory where the current file (app.py) is located
     base_dir = os.path.dirname(__file__)
     
-    # Construct the full path dynamically, assuming the file is in 'static' folder
+    # Construct the full path dynamically, the file is in 'static' folder
     filepath = os.path.join(base_dir, "static", filename)
     
     words_set = set()
@@ -227,6 +224,7 @@ if __name__=='__main__':
                 score = sentiment_score(sentence, afinn)
                 sentence_scores.append([sentence, score]) # SYALLL this is to append into the list 'sentence_scores' [sentence, score] okayyyy :D
 
+        
         # Step 6: Calculate overall score
         overall_score = 0
         for sentenceLs in sentence_scores: 
