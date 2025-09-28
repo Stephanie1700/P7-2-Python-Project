@@ -1,3 +1,5 @@
+import os
+
 # --------------------------------------------------------------
 # Function to split sentence into words (credits to Jasper haha)
 # --------------------------------------------------------------
@@ -12,7 +14,13 @@ def split_words(sentence):
 # ---------------------------------------------------------------
 # Function to load AFINN dictionary from file (credits to Jasper haha)
 # ---------------------------------------------------------------
-def load_afinn_dict(filepath=r"C:\Users\Syalinah\OneDrive\Documents\SIT\Python Project\AFINN-en-165(Updated).txt"): #Ensure the file path is correct
+def load_afinn_dict(filename="AFINN-en-165(Updated).txt"): 
+    # Get the directory where the current file (app.py) is located
+    base_dir = os.path.dirname(__file__)
+    
+    # Construct the full path dynamically, the file is in 'static' folder
+    filepath = os.path.join(base_dir, "static", filename)
+
     afinn = {}
     file = open(filepath, "r", encoding="utf-8")
     for line in file:
@@ -121,9 +129,18 @@ def get_most_positive_negative_sentence(sentence_scores):
 # ----------------------------------------------------
 # Function to load a list of english words from file 
 # ----------------------------------------------------
-def load_english_words(filepath=r"C:\Users\Syalinah\OneDrive\Documents\SIT\Python Project\englishWords.txt"): #Ensure the file path is correct
+def load_english_words(filename="englishWords.txt"): #Ensure the file path is correct
+
+    # Get the directory where the current file (app.py) is located
+    base_dir = os.path.dirname(__file__)
+    
+    # Construct the full path dynamically, the file is in 'static' folder
+    filepath = os.path.join(base_dir, "static", filename)
+
+
+
     words_set = set()
-    with open(filepath, "r") as file:
+    with open(filepath, "r", encoding="utf-8") as file:
         for line in file:
             # strip whitespace and convert to lowercase
             words_set.add(line.strip().lower())
@@ -213,6 +230,7 @@ if __name__=='__main__':
                 else:
                     segmented_results = segment(clean_sentence.lower(), segmentation_words)
                     processed_sentences.append(segmented_results.strip())
+        
         
         # Step 5: Calculate the score for each sentence
         sentence_scores = [] 
