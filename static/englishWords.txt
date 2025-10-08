@@ -1024,6 +1024,7 @@ cash
 cashier
 cassette
 cast
+cast's
 castaway
 castigate
 casting
@@ -2251,7 +2252,7 @@ delightful
 delightfully
 delineate
 delinquent
-deliver
+delivered
 deliverance
 delivery
 delta
@@ -3031,7 +3032,7 @@ embrace
 emerge
 emergency
 emission
-emotion
+emotions
 emotional
 emotive
 empathic
@@ -3230,6 +3231,7 @@ figure
 file
 fill
 film
+film's
 filmmaker
 filmmaking
 final
@@ -3653,7 +3655,7 @@ is
 islamic
 island
 israeli
-issue
+issues
 it
 italian
 item
@@ -3908,6 +3910,7 @@ minute
 miracle
 mirror
 miss
+misstep
 missile
 mission
 mistake
@@ -4234,6 +4237,7 @@ player
 please
 pleasure
 plenty
+plot's
 plot
 plus
 pm
@@ -4345,7 +4349,7 @@ profit
 profound
 program
 progress
-project
+project's
 projection
 prologue
 prominent
@@ -4709,7 +4713,7 @@ should
 shoulder
 shout
 show
-showcase
+showcasing
 shower
 shrug
 shut
@@ -5224,6 +5228,7 @@ victory
 video
 view
 viewer
+viewers
 viewpoint
 village
 violate
@@ -5342,6 +5347,7 @@ wooden
 word
 wordy
 work
+worked
 worker
 working
 works
@@ -5374,3 +5380,4 @@ young
 your
 yourself
 youth
+leaving
