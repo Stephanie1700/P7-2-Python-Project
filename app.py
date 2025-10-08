@@ -1,18 +1,18 @@
 import os
 
 # --------------------------------------------------------------
-# Function to split sentence into words (credits to Jasper haha)
+# Function to split sentence into words
 # --------------------------------------------------------------
 def split_words(sentence):
     clean_sentence = ""
     for char in sentence:   # LOOP: check every character
-        if char.isalpha() or char == " " or char == "-":   # keep letters, spaces, and "-" To steph: do you need the '
+        if char.isalpha() or char == " " or char == "-":   # keep letters, spaces, and "-" 
             clean_sentence += char.lower()
     words = clean_sentence.split()   # split into words
     return words
 
 # ---------------------------------------------------------------
-# Function to load AFINN dictionary from file (credits to Jasper haha)
+# Function to load AFINN dictionary from file 
 # ---------------------------------------------------------------
 def load_afinn_dict(filename="AFINN-en-165(Updated).txt"): 
     # Get the directory where the current file (app.py) is located
@@ -32,7 +32,7 @@ def load_afinn_dict(filename="AFINN-en-165(Updated).txt"):
     return afinn
 
 # ------------------------------------------------------------------------------------
-# Function to calculate sentiment score of each words in a sentence(credits to Jasper hahaha)
+# Function to calculate sentiment score of each words in a sentence
 # ------------------------------------------------------------------------------------
 
 def sentiment_score(sentence, afinn):
