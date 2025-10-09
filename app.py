@@ -205,14 +205,14 @@ if __name__=='__main__':
     # Combine them into a single set for segmentation
     segmentation_words = words_set.union(set(afinn.keys()))
 
-    # Step 2: Ask user to input smtg bah
+    # Step 2: Ask user to input
     input_text = input("Enter your review(s): ").strip()
 
     if input_text == "":
         print("Invalid input. Please enter some text.")
     
     else:
-        # Step 3: Split the input text aka a para... into sentences
+        # Step 3: Split the input text into sentences
         import re
         sentences = [s.strip() for s in re.split(r'(?<=[.!?])', input_text) if s.strip() != ""]
         
@@ -237,7 +237,7 @@ if __name__=='__main__':
         for sentence in processed_sentences:
             if sentence.strip() != "":
                 score = sentiment_score(sentence, afinn)
-                sentence_scores.append([sentence, score]) # SYALLL this is to append into the list 'sentence_scores' [sentence, score] okayyyy :D
+                sentence_scores.append([sentence, score]) 
 
         
         # Step 6: Calculate overall score
