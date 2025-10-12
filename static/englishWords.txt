@@ -430,7 +430,7 @@ attractive
 attractively
 attribute
 audible
-audience
+audiences
 audio
 audition
 auditorium
@@ -2945,7 +2945,7 @@ eagle
 ear
 earl
 early
-earn
+earned
 earnest
 earnestly
 earnings
